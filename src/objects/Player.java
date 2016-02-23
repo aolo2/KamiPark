@@ -176,6 +176,7 @@ public class Player extends GameObject {
                 //Left side collision
                 if (getBoundsRight().intersects(tmpObject.getBounds())) {
                     x = tmpObject.getX() + 24;
+                    velX = 0;
                     if (tmpObject.getId() == ObjectId.SquareSaw) {
                         x += ((SquareSaw) tmpObject).getSide() / 3;
                     }
@@ -184,6 +185,7 @@ public class Player extends GameObject {
                 //Right side collision
                 if (getBoundsLeft().intersects(tmpObject.getBounds())) {
                     x = tmpObject.getX() - 25;
+                    velX = 0;
                     if (tmpObject.getId() == ObjectId.SquareSaw) {
                         x -= ((SquareSaw) tmpObject).getSide() / 3;
                     }
