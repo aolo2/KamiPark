@@ -10,7 +10,7 @@ import objects.Popup;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-/**
+/*
  * Created by aolo2 on 5/22/15.
  */
 
@@ -57,7 +57,7 @@ public class Game extends Canvas implements Runnable {
 //      handler.addObject(new Popup(250, 55, 10, "", true, ObjectId.Popup)); // Player debug info
 //        System.out.print("Creating level " + levelNumber + ": ");
         // TODO: LEVEL LOADING
-        handler.createLevel(0); /* Later replace with 'levelnumber' */
+        handler.createLevel(-1); /* Later replace with 'levelnumber' */
         handler.addPlayer(new Player(handler.getSpawnx(), handler.getSpawny(), 0, handler, cam, ObjectId.Player)); // Player
 
         this.addKeyListener(new KeyInput(handler));
@@ -172,7 +172,7 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0, 0, getWidth(), getHeight());
 
         g2d.setColor(debugInfoColor);
-        g2d.setFont(new Font(g2d.getFont().getFontName(), Font.PLAIN, (int) 10));
+        g2d.setFont(new Font(g2d.getFont().getFontName(), Font.PLAIN, 10));
         g2d.drawString("fps: " + fps + " zoom: " + String.format("%.2f", zoom), 5, 15);
         g2d.scale(zoom, zoom);
         g2d.translate(cam.getX(), cam.getY()); //begin of cam
@@ -203,9 +203,12 @@ public class Game extends Canvas implements Runnable {
 
         System.out.print("\nYour choice: ");
         Scanner in = new Scanner(System.in); */
-        int res_num = 4;
 
-        switch (res_num) { // Note: uncomment, and later replace with graphical stuff.
+        WINDOW_WIDTH = 1280;
+        WINDOW_HEIGHT = 720;
+
+        //TODO: resolution
+        /*switch (res_num) { // Note: uncomment, and later replace with graphical stuff.
             case 1:
                 WINDOW_WIDTH = 640;
                 WINDOW_HEIGHT = 360;
@@ -235,7 +238,7 @@ public class Game extends Canvas implements Runnable {
                 WINDOW_WIDTH = 1024;
                 WINDOW_HEIGHT = 576;
                 break;
-        }
+        }*/
 
 
         new Window(WINDOW_WIDTH, WINDOW_HEIGHT, "Kamikadze Park Prototype", new Game());

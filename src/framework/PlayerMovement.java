@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
 public class PlayerMovement {
-    private int playerNum;
+//    private int playerNum;
     private Player p;
     private boolean[] keysPressed; // keysPressed[KeyEvent.VK_...]
     private final int MAX_KEY_NUMBER = 256;
@@ -21,7 +21,7 @@ public class PlayerMovement {
     }
 
     public PlayerMovement(int playerNum) {
-        this.playerNum = playerNum;
+//        this.playerNum = playerNum;
         keysPressed = new boolean[MAX_KEY_NUMBER];
     }
 
@@ -33,8 +33,6 @@ public class PlayerMovement {
 
             this.ProcessMovement(p, key);
 
-        } else {
-            // Out of range key
         }
     }
 
@@ -44,80 +42,52 @@ public class PlayerMovement {
             keysPressed[key] = false;
 
             this.ProcessMovement(p, key);
-
-        } else {
-            // Out of range key
         }
     }
 
     private void ProcessMovement(Player player, int causeKey) {
-        /* First of all, do we need to QUIT (TODO: pause) */
-        if (keysPressed[KeyEvent.VK_ESCAPE]) {
-            System.out.println('\n' + "Exiting now, thanks for playing.");
-            System.exit(130);
-
-        }
-
-        // TODO: proper zoom
-        if (keysPressed[KeyEvent.VK_CONTROL]) {
-            Game.setZoom(3); // "Zoom in"
-        } else {
-            Game.setZoom(1); // "Zoom out"
-        }
-
-
-        if (keysPressed[KeyEvent.VK_A] && (causeKey == KeyEvent.VK_A)) {
-            if (!player.isJumping()) {
-                player.setDesiredVelX(-5);
-                playerMovingLeft = true;
-            }
-        } else if (causeKey == KeyEvent.VK_A) {
-            if (!playerMovingRight && playerMovingLeft) {
-                player.setDesiredVelX(0);
-            } else if (playerMovingRight) {
-                player.setDesiredVelX(5);
-            }
-            playerMovingLeft = false;
-        }
-
-
-        if (keysPressed[KeyEvent.VK_D] && (causeKey == KeyEvent.VK_D)) { //if we are here because of the 'D', not because of the if's order of appearance
-            if (!player.isJumping()) {
-                player.setDesiredVelX(5);
-                playerMovingRight = true;
-            }
-        } else if (causeKey == KeyEvent.VK_D) {
-            if (!playerMovingLeft && playerMovingRight) {
-                player.setDesiredVelX(0);
-            } else if (playerMovingLeft) {
-                player.setDesiredVelX(-5);
-            }
-            playerMovingRight = false;
-        }
-
-        if (keysPressed[KeyEvent.VK_W] || keysPressed[KeyEvent.VK_SPACE]) {
-            if (!player.isJumping()) {
-                if (!player.isCrouching()) {
-                    player.setJumping(true);
-                    player.setVelY(-7);
-                } else {
-                    if (player.canStand()) {
-                        player.setStand();
-                        player.setJumping(true);
-                        player.setVelY(-10);
-                    }
+        switch (causeKey) {
+            case KeyEvent.VK_W:
+                //TODO: fix eternal isFalling bug
+                if (keysPressed[causeKey] && !player.isJumping() ) {
+                    player.setVelY(-8);
                 }
-            }
-        }
+                break;
 
-        if (keysPressed[KeyEvent.VK_S]) {
-            if (!player.isCrouching()) {
-                player.setCenterCrouch();
-            }
-        } else {
-            if (player.isCrouching() && player.canStand()) {
-                player.setStand();
-            }
+            case KeyEvent.VK_A:
+                if (keysPressed[causeKey]) {
+                    player.setDesiredVelX(-5);
+                    playerMovingLeft = true;
+                } else if (playerMovingRight) {
+                    playerMovingLeft = false;
+                    player.setDesiredVelX(5);
+                } else {
+                    player.setDesiredVelX(0);
+                    playerMovingLeft = false;
+
+                }
+                break;
+
+            case KeyEvent.VK_D:
+                if (keysPressed[causeKey]) {
+                    player.setDesiredVelX(5);
+                    playerMovingRight = true;
+                } else if (playerMovingLeft) {
+                    playerMovingRight = false;
+                    player.setDesiredVelX(-5);
+                } else {
+                    player.setDesiredVelX(0);
+                    playerMovingRight = false;
+                }
+                break;
+
+            case KeyEvent.VK_S:
+                if (keysPressed[causeKey]) {
+                    player.setCenterCrouch();
+                } else if (player.canStand()) {
+                    player.setStand();
+                }
+                break;
         }
     }
 }

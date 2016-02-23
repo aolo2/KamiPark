@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-/**
+/*
  * Created by aolo2 on 5/22/15.
  */
 
@@ -48,9 +48,9 @@ public class Handler {
 
         playerNum = playerList.size();// Recalculate the number of player
 
-        if (!allowedToTick) {
-            return;
-        }
+//        if (!allowedToTick) {
+//            return;
+//        }
     }
 
     public int getSpawnx() {
@@ -172,7 +172,7 @@ public class Handler {
             }
 
             f.close();
-            Game.setZoom(.6);
+            //Game.setZoom(.6);
 
         } catch (IOException e) {
             System.out.println("\nThere is no such level! Here are some exceptions, maybe THEY will make you happy:");
