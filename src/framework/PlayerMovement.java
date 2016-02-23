@@ -50,6 +50,7 @@ public class PlayerMovement {
             case KeyEvent.VK_W:
                 //TODO: fix eternal isFalling bug
                 if (keysPressed[causeKey] && !player.isJumping() ) {
+                    player.setJumping(true);
                     player.setVelY(-8);
                 }
                 break;
