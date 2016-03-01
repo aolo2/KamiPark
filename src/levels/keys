@@ -1,0 +1,7 @@
+0 - air
+1 - block (regular)
+2 - spikes (red, kill at touch)
+3 - ghost blocks (texture, but to hitbox)
+4 - conveyour belt
+5 - piston
+6 - text(popup is ObjectID)
